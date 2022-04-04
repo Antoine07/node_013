@@ -6,6 +6,8 @@ console.log(
   "Vous devez commencer le jeu choisissez un nombre compris entre 1 à 100"
 );
 
+console.log(searchNumber);
+
 process.stdin.on("data", (chunk) => {
   const number = parseInt(chunk);
 
@@ -17,6 +19,8 @@ process.stdin.on("data", (chunk) => {
     console.log(`Vous avez dépasser les ${5} tentatives`);
     process.exit(0);
   }
+
+  count++;
 
   if (number > searchNumber) {
     console.log(`Le nombre est plus petit que ${number}`);
