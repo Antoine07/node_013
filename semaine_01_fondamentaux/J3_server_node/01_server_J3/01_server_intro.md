@@ -201,9 +201,9 @@ http.createServer(function (req, res) {
 }).listen(8080);
 ```
 
-## 02 Exercice search JSON file
+## 02 Exercice search JSON file users
 
-Créez un projet et récupérez le fichier Data/ dans la partie Exercices du cours. 
+1. Créez un projet et récupérez le fichier Data/ dans la partie Exercices du cours. 
 
 Nous allons créer une petite API qui retournera des données au format JSON.
 
@@ -213,4 +213,8 @@ Implémentez les routes suivantes :
 
 - /search/[Name_user] pour récupérer les informations liés à un utilisateur
 
+Dans la page d'un utilisateur donnez la moyenne de l'utilisateur.
+
 Gérez également les erreurs, si un user n'existe pas alors on retournera une page 404.
+
+2. Indiquez la mention de chaque utilisateur sur sa page.
