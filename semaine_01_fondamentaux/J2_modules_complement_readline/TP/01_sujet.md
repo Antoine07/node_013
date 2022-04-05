@@ -17,6 +17,17 @@ Structurez votre projet dans un dossier src/ et initialisez à l'aide de la comm
 npm init -y
 ```
 
+Ajoutez la ligne suivante dans le package.json
+
+```json
+{
+// ...
+type : "module"
+
+}
+
+```
+
 Créez un fichier utils.js dans lequel vous placerez la logique métier et importez-la dans le fichier principal : app.js. Utilisez les import/export en configurant votre package.json
 
 Utilisez les étudiants suivants et définissez les labels "Assez bien", "Bien", "Très bien" et "Passable" des mentions de chaque étudiant
