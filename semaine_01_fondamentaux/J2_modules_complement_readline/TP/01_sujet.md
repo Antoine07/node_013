@@ -9,16 +9,19 @@ Installez un nouveau projet, définissez à l'aide des variables d'environnement
 - Une mention "bien" si sa moyenne est au moins égale à 14/20 et inférieure à 16/20.
 - Une mention "très bien" s'il obtient une moyenne égale ou supérieure à 16/20.
 
-Créez le fichier .env à la racine de votre projet et utilisez process.env pour récupérez ces variables.
+Créez le fichier .env à la racine de votre projet et utilisez process.env pour récupérez ces variables, vous avez besoin de dotenv module tier de Node qu'il faut installer dans le projet avant d'utiliser les Variables d'environnement.
 
 ```txt
+// .env
 MENTION_AB= "assez bien"
 ```
 
 Pour le lire en js avec l'objet process
 
 ```js
-process.env.MENTION_AB
+import 'dotenv/config'
+
+const { MENTION_AB  } = process.env;
 ```
 
 Structurez votre projet dans un dossier src/ et initialisez à l'aide de la commande 
