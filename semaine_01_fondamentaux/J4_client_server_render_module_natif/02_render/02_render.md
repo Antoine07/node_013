@@ -4,17 +4,20 @@ Nous allons essayer de gérer maintenant le rendu d'une page HTML avec un fichie
 
 Vous allez dans cet exercice apprendre à mieux gérer un serveur Node.js natif, avec des fichiers statiques et des données de type Post.
 
-Vous n'avez pas la possibilité de passer des données aux vues de manière dymanique pour l'instant.
+Vous avez la possibilité de passer des données à votre vue à l'aide de EJS, on vous invite à l'utiliser dans ce TP.
 
 ## 01 Exercice add users TP
 
 1. Définissez l'arborescence suivante pour gérer les différents assets et vues de l'exercice.
 
-Placez le bootstrap.min.css dans le fichier styles.css, nous allons gérer deux pages : la page d'accueil qui contiendra un formulaire et une page qui ne sera pas physiquement un fichier, mais qui sera gérée dans le code du serveur lui-même.
+Placez le bootstrap.min.css dans le dossier css des assets, nous allons gérer deux pages : la page d'accueil qui contiendra un formulaire pour ajouter un utilisateur et une page users qui affichera l'ensemble des utilisateurs.
 
 ```text
-view/
-    home.html <-- formulaire
+views/
+    partials/
+        header.ejs
+    home.ejs <-- formulaire
+    users.ejs <-- affiche les utilisateurs
 assets/
     css/
         bootstrap.min.css  <-- voir la gestion des css dans les questions ci-dessous
@@ -23,7 +26,7 @@ server.js
 
 2. Installez le projet comme d'habitude.
 
-3. Les données, placez les dans le fichier server.js
+3. Les données, placez les dans le fichier server.js une fois au démarrage
 
 ```js
 const students = [
@@ -34,9 +37,13 @@ const students = [
 
 4. Mettre la page principale en place avec les liens 
 
-Voici le code de la page principale à mettre dans le fichier home.html. Vous devez également lire son contenu et le renvoyer au client.
+Voici le code de la page principale à mettre dans le fichier home.ejs. Vous devez également lire son contenu et le renvoyer au client.
 
-4. Vous allez maintenant créez le formulaire permettant d'insérer un nouvel utilisateur. Utilisez l'exemple de code ci-dessous, ne cherchez pas pour l'instant à gérer les CSS, nous le ferons plus bas (question 5).
+```js
+ejs.renderFile() // voir l'exemple dans l'exercice shuffle
+```
+
+4. Vous allez maintenant créez le formulaire permettant d'insérer un nouvel utilisateur. Utilisez l'exemple de code ci-dessous. Notez que le formulaire est envoyé à l'url / en méthode POST
 
 ```html
 <!DOCTYPE html>
@@ -77,10 +84,12 @@ Voici le code de la page principale à mettre dans le fichier home.html. Vous de
 Dans votre serveur maintenant, il faut récupérer les données POST, on détermine d'abord le type de requête qui est envoyé au serveur. Puis on stream les données qui arrivent et on les met dans une variable à l'aide de la méthode req.on, voyez l'exemple suivant, il est détaillé.
 
 ```js
+// type de la requête 
 if (req.method === 'POST') {
     // Handle post info...
     let body = '';
     req.on('data', data => {
+        // les données arrivent par paquets que l'on enregistre dans une variable
         body += data;
     });
 
@@ -112,18 +121,3 @@ Vous devez mettre un lien dans la page principale vers les CSS. Cependant, c'est
 
 Récupérez les données POST, on déterminera le type de requête qui est envoyé au serveur, puis on stream les données qui arrivent, aidez-vous de l'exemple de code suivant :
 
-```js
-if (req.method === 'POST') {
-    // Handle post info...
-    let body = '';
-    req.on('data', data => {
-        body += data;
-    });
-
-    // On écoute maintenant la fin de l'envoi des données avec la méthode on et l'attribut end
-    req.on('end', () => {
-        res.writeHead(200, { 'Content-Type' : 'application/json' });
-        res.end( JSON.stringify({ "result" : body }));
-    });
-}
-```
