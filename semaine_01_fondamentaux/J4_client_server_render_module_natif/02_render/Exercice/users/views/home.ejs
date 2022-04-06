@@ -1,0 +1,26 @@
+<%- include('partials/header'); -%>
+<div class="container">
+    <div class="row">
+        <div class="col-8">
+            <% if(message) { %>
+                <p><%= message %></p>
+            <% } %>
+            <form action="/add" method="POST">
+                <div class="form-group">
+                    <label>Name
+                        <input class="form-control" name="name" type="text" />
+                    </label>
+                </div>
+                <button type="submit" class="btn btn-primary">Ajouter</button>
+            </form>
+        </div>
+    </div>
+    <div class="col-4">
+        <p class="text-primary">
+            <a type="submit" class="btn" href="/students">students</a>
+        </p>
+    </div>
+</div>
+</div>
+<%- include('partials/footer'); -%>
+

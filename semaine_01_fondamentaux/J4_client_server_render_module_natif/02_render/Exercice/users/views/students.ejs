@@ -1,0 +1,26 @@
+<%- include('partials/header'); -%>
+<div class="container">
+    <div class="row">
+        <div class="col-12">
+            <p class="text-primary">
+                <a type="submit" class="btn" href="/">Home</a>
+            </p>
+            <% if (students) { %>
+                <h2>Students</h2>
+                <ul>
+                    <% for(const { name } of students) { %>
+                     <li><%= name %>
+                    <form action="/delete" method="POST" >
+                        <input type="hidden" name="name" value="<%= name %>" />
+                        <button class="btn btn-danger">Delete</button>
+                    </form>
+                    </li>
+                    <% }; %>
+                  </ul>
+              <% } %>
+        </div>
+    </div>
+</div>
+</div>
+<%- include('partials/footer'); -%>
+
