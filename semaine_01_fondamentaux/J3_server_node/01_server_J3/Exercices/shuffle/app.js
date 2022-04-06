@@ -1,15 +1,14 @@
 import http from 'http';
-import users from './src/Data/users.js';
 import { readFileSync } from 'fs';
+import ejs from 'ejs';
 
+import users from './src/Data/users.js';
 import { showUser, shuffle } from './src/utils.js';
 
 const hostname = 'localhost';
 const port = '8080';
 
-
 const server = http.createServer((req, res) => {
-
     const url = req.url.replace('/', '');
 
     if (url === 'favicon.ico') {
@@ -21,19 +20,13 @@ const server = http.createServer((req, res) => {
 
     if (url === '') {
 
-        res.end(`
-        <!DOCTYPE html>
-            <html>
-            <head>
-            <meta charset="utf-8">
-            <title>Home</title>
-            <link href="/assets/style.css" rel="stylesheet">
-            </head>
-            <body>
-            ${showUser(users)}
-            </body>
-        </html>
-`);
+        res.writeHead(200, { 'Content-Type': 'text/html' });
+
+        // str c'est la vue compilée avec les données
+        ejs.renderFile('./views/index.ejs', {users}, {},  function(err, str){
+            // str => Rendered HTML string
+            res.end(str); // la requete est finie pas de boucle infinie
+        });
 
         return;
     }

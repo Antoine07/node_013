@@ -1,0 +1,10 @@
+<%- include('partials/header'); -%>
+<% if (users) { %>
+    <h2>YES</h2>
+    <ul>
+        <% for(const user of users) { %>
+         <%= user %>
+        <% }; %>
+      </ul>
+  <% } %>
+
