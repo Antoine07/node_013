@@ -85,3 +85,22 @@ Et l'import dans un autre fichier :
 import MyModel from './utils/model';
 
 ```
+
+## 01 Exercice
+
+Créez un modèle Kitten, une classe par exemple, dans votre serveur express et ajouter à l'aide d'un formulaire des chats dans un tableau de type Kitten (modèle). On voudrait avoir un tableau de kittens bien formaté que l'on pourra afficher dans une page de votre choix.
+
+Contraintes : utilisez ejs, pour se faire suivez la recette suivante, dans votre serveur Express indiquez que vous utiliser un moteur de template spécifique en l'occurence **ejs** ici.
+
+```js
+// ajoute EJS à Express
+app.set('view engine', 'ejs');
+```
+
+Pour afficher un render HTML vous utiliserez dans la méthode get la syntaxe suivante, fonction render ajoutée par la méthode set plus haut et maintenant disponible dans Express. 
+
+```js
+// comme réponse pour une route donnée
+res.render('home', {kittens})
+```
+
