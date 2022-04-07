@@ -63,7 +63,7 @@ export const hello;
 - import dans le fichier server.js
 
 ```js
-import { hello } from './utils/hello';
+import { hello } from './src/utils';
 ```
 
 Lancez l'application et affichez en console le message de la fonction hello.
