@@ -12,8 +12,11 @@ app.set('view engine', 'ejs');
 // gère toutes les routes GET POST DELETE MIDDLEWARE
 app.all('/',  (req, res, next) =>{
     console.log('Accessing the secret section ...');
-    if(true)
+    if(true){
         next(); // PASSE LE CONTROLE AU MIDDLEWARE pour la même URL 
+
+        return;
+    }
     res.redirect('/bad')
 });
 
