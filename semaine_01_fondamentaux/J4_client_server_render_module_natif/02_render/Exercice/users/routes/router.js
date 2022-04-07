@@ -1,21 +1,14 @@
-import http from 'http';
 import { readFileSync } from 'fs';
 import ejs from 'ejs';
-
-const hostname = 'localhost';
-const port = '8080';
-
-let students = [
-    { name: "Sonia" },
-    { name: "Antoine" }
-];
+import students from '../Models/students.js';
+import homeController from '../controllers/home.js';
 
 let message = '';
 
-const server = http.createServer((req, res) => {
+export default (req, res) => {
     const url = req.url.replace('/', '');
     const names = students.map( student => student.name.toUpperCase() );
-    console.log(url, req.method)
+
     if (url === 'favicon.ico') {
         res.writeHead(200, { 'Content-Type': 'image/x-icon' });
 
@@ -24,13 +17,7 @@ const server = http.createServer((req, res) => {
     }
 
     if (url === '') {
-        res.writeHead(200, { 'Content-Type': 'text/html' });
-
-        // str c'est la vue compilée avec les données
-        ejs.renderFile('./views/home.ejs', { message }, {}, (err, str) => {
-            res.end(str);
-        });
-
+        homeController(req, res);
         return;
     }
 
@@ -45,6 +32,7 @@ const server = http.createServer((req, res) => {
 
     if (url === 'add' && req.method === 'POST') {
         let body = '';
+      
         req.on('data', data => {
             body += data;
         });
@@ -103,9 +91,4 @@ const server = http.createServer((req, res) => {
     });
     res.end("Page not found");
 
-});
-
-
-server.listen(port, hostname, () => {
-    console.log(`Server running at http://${hostname}:${port}/`);
-});
+}
