@@ -4,7 +4,7 @@ import { fileURLToPath } from 'url';
 import { readFileSync } from "fs";
 
 // la logique métier
-import { hello } from "./utils/hello.js";
+import { shuffle } from "./utils/shuffle.js";
 
 // constantes
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
@@ -17,7 +17,10 @@ const kittens = JSON.parse(readFileSync(`${__dirname}/Data/kittens.json`));
 app.use(express.static(path.join(__dirname, 'public')));
 app.set('view engine', 'ejs');
 
-app.get("/", (req, res) => {
+app.get("/:shuffle?", (req, res) => {
+    if(req.params.shuffle){
+        shuffle(kittens);
+    }
     res.render('home', { kittens })
 });
 
@@ -25,6 +28,11 @@ app.get("/kitten/:id", (req, res) => {
     const { name, age, image, description } = kittens.find(k => k.id === parseInt( req.params.id ));
 
     res.render('kitten', { name, age, image, description })
+});
+
+app.get("/shuffle", (req, res) => {
+   
+    res.render('home', { kittens : shuffle(kittens) })
 });
 
 app.listen(port, () => {
