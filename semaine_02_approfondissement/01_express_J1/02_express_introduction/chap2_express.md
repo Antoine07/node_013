@@ -149,6 +149,8 @@ Vous allez utiliser les données suivantes que vous placerez pour l'instant dans
 
 2. Chaque nom de chat est cliquable, sur cette page vous afficherez en plus de leurs noms leurs ages et description.
 
+3. Créez un bouton qui permet de mélanger les chats sur la page d'accueil.
+
 ## Header
 
 Vous avez également accès au header avec Express. Vous pouvez y accéder et les changer également. Rappelons que c'est le rôle d'une application Web côté serveur de définir précisément la réponse au client : son statut et code.
