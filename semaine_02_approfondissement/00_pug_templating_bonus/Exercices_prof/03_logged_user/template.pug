@@ -1,0 +1,10 @@
+- const { name, age, birthdate, location, isAdmin } = loggedUser;
+.user-card
+    h4
+        | #{name.first} #{name.last.toUpperCase()} 
+        small (#{age} ans)
+
+    p Né le #{birthdate.toLocaleDateString()}
+    p Vit à <strong>#{location.city}, #{location.zipcode}</strong>
+    if isAdmin
+        span.badge-admin Est administrateur
