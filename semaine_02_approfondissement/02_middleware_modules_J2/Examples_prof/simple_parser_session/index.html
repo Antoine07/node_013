@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>Formulaire (URL-encoded par défaut)</h1>
+
+    <form action="/postdata" method="POST">
+        <input type="text" name="login" placeholder="Login">
+        <input type="password" name="password" placeholder="*****">
+
+        <button type="submit">Se connecter!</button>
+    </form>
+
+    <h1>En JSON</h1>
+
+    <form action="/postdata" method="POST" id="jsonform">
+        <textarea name="jsondata">{ "msg": "test" }</textarea>
+        <button type="submit">Envoyer le JSON</button>
+    </form>
+
+    <script>
+        const form = document.getElementById('jsonform');
+        form.addEventListener('submit', event => {
+            event.preventDefault(); // empêche le browser d'envoyer les données au format URLENCODED par défaut
+
+            const jsondata = document.querySelector('[name=jsondata]').value;
+            console.log(jsondata)
+            const json = JSON.parse(jsondata);
+            
+            fetch('/postdata', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(json)
+            });
+        });
+    </script>
+</body>
+</html>

@@ -1,33 +1,46 @@
 import express from "express";
-import dotenv from 'dotenv';
-import session from 'express-session';
+import path from "path";
+import { fileURLToPath } from 'url';
+import session from "express-session";
 
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const app = express();
 
-dotenv.config();
+const hostname = 'localhost';
+const port = 8000;
 
-const {
-  APP_LOCALHOST : hostname,
-  APP_PORT: port
-} = process.env;
-
-app.use(express.urlencoded({extended: true})); 
-app.use(express.json());
 app.use(session({
-  name : 'simple',
-  secret : 'simple',
-  resave : false,
+  name: 'ma-session',
+  secret: 'ma-session-secrete',
+  resave: true,
   saveUninitialized: true
 }));
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 
-app.get('/', (req, res)=> {
-  if( req.session.count  ){
-    req.session.count++;
-  }else{
-    req.session.count = 1;
+app.get('/', (req, res) => {
+  res.sendFile(path.join(__dirname, 'index.html'));
+});
+
+app.post('/postdata', (req, res) => {
+  console.log('req body = ', req.body);
+
+  res.send('Données envoyées!');
+});
+
+app.get('/login/:username', (req, res) => {
+
+  req.session.user = { name: req.params.username };
+
+  res.send(`Bienvenue à toi ${req.session.user.name}`);
+});
+
+app.get('/whoami', (req, res) => {
+  if (!req.session.user) {
+    return res.send('Je ne vous connais pas. Allez voir /login/:username svp');
   }
 
-  res.json({ message : "Hello World", count : req.session.count });
+  res.send(`Hey je te connais! Tu t'appelles ${req.session.user.name}`);
 });
 
 app.listen(port, () => {
