@@ -13,8 +13,6 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
 const app = express();
 
-let message = '';
-
 // ==========
 // App middlewares
 // ==========
@@ -22,14 +20,14 @@ let message = '';
 app.use(express.static(path.join(__dirname, "public")));
 // app.use('/favicon.ico', (req, res, next) => { res.send('FAVICON!'); })
 
-app.use('/check', parite);
+app.use('/check/:number', parite);
 
 // ==========
 // App routes
 // ==========
 
 app.get("/check/:number"/* , parite */, (req, res) => {
-  res.json({ message });
+  res.json({ message: req.message });
 });
 
 // ==========
