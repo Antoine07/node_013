@@ -17,7 +17,7 @@ router.get('/:shuffle?', (req, res) =>{
   if(req.params.shuffle){
     shuffle(kittens);
 }
-res.render('home', { kittens })
+  res.render('home', { kittens })
 });
 
 router.get('/kitten/:id', (req, res) =>{
