@@ -15,11 +15,15 @@
 
     <div class="c"></div>
 
-
     <script>
         document.getElementById('callAPI').onclick = function() {
 
-            fetch("http://localhost:8888/c")
+            fetch("http://localhost:8888/c", {
+                method:'POST',
+                headers: {
+                    'Content-Type':'application/json'
+                }
+            })
                 .then(response => response.json())
                 .then( ({users}) => {
                     let u = "<ul>";
