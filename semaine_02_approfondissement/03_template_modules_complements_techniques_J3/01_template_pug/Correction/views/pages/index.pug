@@ -1,0 +1,16 @@
+extends layouts/frontend.pug
+
+block content
+    h1.mt-4 Posts
+    
+    ul.list-group
+        each post in posts
+            -
+                const formattedDate = new Date(post.date).toLocaleDateString('ja-JA', {
+                    day: 'numeric',
+                    weekday: 'long',
+                    month: 'long',
+                    year: 'numeric'
+                });
+
+            li.list-group-item #{post.title} (#{formattedDate})
