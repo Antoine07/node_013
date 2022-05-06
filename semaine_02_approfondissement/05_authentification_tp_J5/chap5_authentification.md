@@ -68,9 +68,9 @@ Exemple avec la méthode `.findOne` de Mongoose pour faire une recherche à part
 
 ```js
 // UsUserModeler est votre modèle mongoose
-const user = await UserModel.findOne({ email : email });
+const user = await UserModel.findOne({ email : req.body.email });
 
-if (doc) {
+if (user) {
     // User exists
 } else {
 
